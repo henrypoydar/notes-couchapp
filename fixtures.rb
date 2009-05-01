@@ -17,7 +17,7 @@ def main
       data = { :title => blurbs.sort_by {rand}.first.split('.').first,
         :body => blurbs.sort_by {rand}.first,
         :tags => blurbs.sort_by {rand}.first.split(' ').sort_by {rand}[0..3].map {|e| e.downcase.gsub('.', '').strip},
-        :created_at => Time.now.utc.strftime('%Y/%m/%d %H:%M:%S +0000')
+        :created_at => (Time.now - 3600*rand(10)).utc.strftime('%Y/%m/%d %H:%M:%S +0000')
       }
       response = db.save_doc(data)
       doc = db.get(response['id'])
