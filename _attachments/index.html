@@ -8,6 +8,7 @@
     <h1>Notes CouchApp</h1>
     <p>A scratch app for CouchDB and CouchApp experimentation</p>
     <ul id="view"></ul>
+    <p><a href=''>Add a note</a></p>
   </body>
   <script src="/_utils/script/json2.js"></script>
   <script src="/_utils/script/jquery.js?1.2.6"></script>
@@ -17,7 +18,7 @@
       var dbname = document.location.href.split('/')[3];
       var design = unescape(document.location.href).split('/')[5];
       var DB = $.couch.db(dbname);
-      DB.view(design+"/example",{success: function(json) {
+      DB.view(design+"/notes",{success: function(json) {
         $("#view").html(json.rows.map(function(row) {
           return '<li>'+row.key+'</li>';
         }).join(''));
