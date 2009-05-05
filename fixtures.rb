@@ -14,9 +14,12 @@ def main
   begin
     db = CouchRest.database!("http://#{host}:#{port}/#{ARGV[0]}")
     10.times do
-      data = { :title => blurbs.sort_by {rand}.first.split('.').first,
+      data = { 
+        :type => 'Note',
+        :title => blurbs.sort_by {rand}.first.split('.').first,
         :body => blurbs.sort_by {rand}.first,
-        :tags => blurbs.sort_by {rand}.first.split(' ').sort_by {rand}[0..3].map {|e| e.downcase.gsub('.', '').strip},
+        :tags => blurbs.sort_by {rand}.first.split(' ').sort_by {rand}[0..4].map {|e| 
+          e.downcase.gsub(/[^a-z]/, '').strip},
         :created_at => (Time.now - 3600*rand(10)).utc.strftime('%Y/%m/%d %H:%M:%S +0000')
       }
       response = db.save_doc(data)
